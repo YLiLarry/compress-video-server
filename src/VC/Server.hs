@@ -6,8 +6,6 @@ import VC.Server.Routes
 import VC.Server.Types
 import Control.Monad.Reader
 
-defaultConfig :: Config
-defaultConfig = Config "" "" ""
 
 startServer :: ReaderT Config IO ()
 startServer = do

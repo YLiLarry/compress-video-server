@@ -6,29 +6,30 @@ import Data.Aeson
 import GHC.Generics
 import Data.SL
 import Happstack.Server
+import Control.Monad.Reader
 
 type Version = String
 type ConfigName = String
 data Config = Config {
-   base :: FilePath,
    fingerprintFile :: FilePath,
    userConfigDir :: FilePath
 } deriving (Generic)
+
+defaultConfig :: Config
+defaultConfig = Config "" ""
 
 instance FromJSON Config
 instance ToJSON Config
 instance SL Config
 
 data UserQuery = UserQuery {
-   version :: String,
    activation :: String
 }
 
 userQuery :: RqData UserQuery
 userQuery = do
-   v <- look "version"
    a <- look "activation"
-   return $ UserQuery v a
+   return $ UserQuery a
    
 instance FromData UserQuery where
    fromData = userQuery

@@ -6,9 +6,8 @@ import Data.SL
 
 testConfig :: Config
 testConfig = Config {
-      base = "./test/test-resource/",
-      fingerprintFile = "/fingerprints.txt",
-      userConfigDir = "/fingerprints/"
+      fingerprintFile = "./test/test-resource/current/fingerprints.txt",
+      userConfigDir = "./test/test-resource/current/cfgs/"
    }
 
 main :: IO ()

@@ -1,1 +1,1 @@
-{"base":"./test/test-resource/","userConfigDir":"/fingerprints/","fingerprintFile":"/fingerprints.txt"}
+{"userConfigDir":"./test/test-resource/current/cfgs/","fingerprintFile":"./test/test-resource/current/fingerprints.txt"}
