@@ -1,1 +1,1 @@
-{"userConfigDir":"./test/test-resource/current/cfgs/","fingerprintFile":"./test/test-resource/current/fingerprints.txt"}
+{"presetDir":"./test/test-resource/current/cfgs/","dbPath":"./test/test-resource/test.db","fingerprintFile":"./test/test-resource/current/fingerprints.txt"}

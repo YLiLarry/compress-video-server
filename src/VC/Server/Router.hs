@@ -2,36 +2,29 @@
 
 module VC.Server.Router where
    
-import Happstack.Server
-import Data.Monoid
-import Control.Monad.Reader
-import VC.Server.Routes
+import VC.Server.Prelude
+import VC.Server.Route
 import VC.Server.Types
-import Control.Monad.Error.Class
 
-router :: ReaderT Config (ServerPartT IO) Response
+router :: VCServer Response
 router = 
    msum [
-            dirs "/api/config/fingerprints" $ 
-               guardQParams userQuery `mplus`
-               guardUserActivated `mplus` do 
-               routeFingerprints
-            ,
-            dirs "/api/config/" $ path $ \configName -> 
-               guardQParams userQuery `mplus`
-               guardUserActivated `mplus` do
-               routeUserConfig configName
+            guardQParams userQuery,
+            guardUserActivated,
+            dirs "/api/config/fingerprints" routeFingerprints,
+            dirs "/api/config/" $ path routeUserConfig
          ] 
 
-guardUserActivated :: ReaderT Config (ServerPartT IO) Response
-guardUserActivated = lift $ 
+-- | User must provide an activated hash code
+guardUserActivated :: VCServer Response
+guardUserActivated = liftServerPartT $
    withData $ \q -> 
       case activation q of
          "activation-code" -> mzero
          otherwise -> simpleErrorHandler "inactivated"
 
-guardQParams :: RqData q -> ReaderT Config (ServerPartT IO) Response
-guardQParams q = lift $ 
+guardQParams :: RqData q -> VCServer Response
+guardQParams q = liftServerPartT $
    getDataFn q >>= 
       \case (Left msg) -> simpleErrorHandler $ unlines msg
             (Right _) -> mzero

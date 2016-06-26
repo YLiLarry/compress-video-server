@@ -16,8 +16,11 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     VC.Server
+                     , VC.Server.Route
                      , VC.Server.Router
-                     , VC.Server.Routes
+                     , VC.Server.Environment
+                     , VC.Server.Prelude
+                     , VC.Server.Route.Preset
                      , VC.Server.Types
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
@@ -28,6 +31,8 @@ library
                      , data-to-json-file
                      , directory
                      , aeson
+                     , HDBC
+                     , HDBC-sqlite3
 
 executable compress-videos-server
   hs-source-dirs:      app
