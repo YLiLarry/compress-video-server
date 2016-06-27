@@ -5,6 +5,10 @@ module VC.Server.Router where
 import VC.Server.Prelude
 import VC.Server.Route
 import VC.Server.Types
+import VC.Server.Environment
+import qualified Data.List as L
+import           Data.ByteString.Lazy (ByteString)
+import qualified Data.ByteString.Lazy as B
 
 router :: VCServer Response
 router = 
@@ -30,12 +34,12 @@ guardQParams q = liftServerPartT $
             (Right _) -> mzero
  
 
-showUserConfig :: String -> VCServer ByteString
-showUserConfig name = do
+showPreset :: String -> VCServer ByteString
+showPreset name = do
    dirPath <- (presetDir . config) <$> ask
-   let fpath = intercalate "/" [dirPath, name]
+   let fpath = L.intercalate "/" [dirPath, name]
    liftIO $ B.readFile fpath
    
 routeUserConfig :: String -> VCServer Response
-routeUserConfig name = toResponse <$> showUserConfig name
+routeUserConfig name = toResponse <$> showPreset name
       
