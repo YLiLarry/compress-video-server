@@ -29,3 +29,13 @@ guardQParams q = liftServerPartT $
       \case (Left msg) -> simpleErrorHandler $ unlines msg
             (Right _) -> mzero
  
+
+showUserConfig :: String -> VCServer ByteString
+showUserConfig name = do
+   dirPath <- (presetDir . config) <$> ask
+   let fpath = intercalate "/" [dirPath, name]
+   liftIO $ B.readFile fpath
+   
+routeUserConfig :: String -> VCServer Response
+routeUserConfig name = toResponse <$> showUserConfig name
+      

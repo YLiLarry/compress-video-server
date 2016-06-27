@@ -6,6 +6,7 @@ import VC.Server.Prelude
 import Data.SL
 import Data.Aeson
 import Database.HDBC.Sqlite3
+import VC.Server.DB.User
 
 data Config = Config {
    -- ^ fingerprint lockfile

@@ -8,6 +8,7 @@ resolver: lts-6.1
 packages:
 - '.'
 - 'submodule/data-to-json-file'
+- 'submodule/db-model'
 
 # Packages to be pulled from upstream that are not in the resolver (e.g., acme-missiles-0.3)
 extra-deps: []

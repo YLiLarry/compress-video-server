@@ -19,13 +19,3 @@ showFingerprints = do
 -- | Route
 routeFingerprints :: VCServer Response
 routeFingerprints = toResponse <$> showFingerprints 
-
-showUserConfig :: String -> VCServer ByteString
-showUserConfig name = do
-   dirPath <- (presetDir . config) <$> ask
-   let fpath = intercalate "/" [dirPath, name]
-   liftIO $ B.readFile fpath
-   
-routeUserConfig :: String -> VCServer Response
-routeUserConfig name = toResponse <$> showUserConfig name
-      

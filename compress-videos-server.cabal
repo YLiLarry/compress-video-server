@@ -18,6 +18,7 @@ library
   exposed-modules:     VC.Server
                      , VC.Server.Route
                      , VC.Server.Router
+                     , VC.Server.DB.User
                      , VC.Server.Environment
                      , VC.Server.Prelude
                      , VC.Server.Route.Preset
@@ -29,6 +30,7 @@ library
                      , happstack-server
                      , aeson
                      , data-to-json-file
+                     , db-model
                      , directory
                      , aeson
                      , HDBC
