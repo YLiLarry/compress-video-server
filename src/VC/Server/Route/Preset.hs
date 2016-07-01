@@ -13,7 +13,7 @@ import Data.List
 -- | Retrive the content of the fingerprint file
 showFingerprints :: VCServer ByteString
 showFingerprints = do
-   fp <- (fingerprintFile . config) <$> ask
+   fp <- (fingerprintFile . config) <$> get
    liftIO $ B.readFile fp
 
 -- | Route

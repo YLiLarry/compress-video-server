@@ -8,19 +8,23 @@ import           Data.ByteString.Lazy (ByteString)
 import qualified Data.ByteString.Lazy as B
 import GHC.Fingerprint
 import Data.Aeson (encode)
+import Control.Exception as E
 
-startServer :: ReaderT Environment IO ()
+startServer :: StateT Environment IO ()
 startServer = do
    generateFingerprints
-   mapReaderT (simpleHTTP nullConf) (unVCServerT router)
+   env <- get
+   liftIO $ simpleHTTP nullConf (runVCServerT env router `catchError` handler)
+   where
+      handler :: IOException -> ServerPart Response
+      handler = simpleErrorHandler . show
    
-
 -- | Generate the fingerprint file.
 -- Used to check if there is an update of config file on the server.
-generateFingerprints :: ReaderT Environment IO ()
+generateFingerprints :: StateT Environment IO ()
 generateFingerprints = do   
-   cfgDir <- (presetDir . config) <$> ask
-   fpf <- (fingerprintFile . config) <$> ask
+   cfgDir <- (presetDir . config) <$> get
+   fpf <- (fingerprintFile . config) <$> get
    writeLog $ "Generate fingerprints for files in " ++ cfgDir
    writeLog $ "Generate fingerprints to " ++ fpf
    cfgs <- liftIO $ getDirectoryContents cfgDir

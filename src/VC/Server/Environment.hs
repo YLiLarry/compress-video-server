@@ -4,9 +4,9 @@ module VC.Server.Environment where
    
 import VC.Server.Prelude
 import Data.SL
-import Data.Aeson
 import Database.HDBC.Sqlite3
 import VC.Server.DB.User
+import DB.Model.MultiTable
 
 data Config = Config {
    -- ^ fingerprint lockfile
@@ -18,7 +18,8 @@ data Config = Config {
 
 data Environment = Environment {
    config :: Config,
-   dbConnect :: Connection   
+   dbConnect :: Connection,
+   user :: Maybe (User Value)
 }
 
 instance FromJSON Config
@@ -30,6 +31,7 @@ loadConfig cfg = do
    dbCon <- connectSqlite3 $ dbPath cfg 
    return Environment {
       config    = cfg,
-      dbConnect = dbCon
+      dbConnect = dbCon,
+      user = Nothing
    }
    
