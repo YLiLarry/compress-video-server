@@ -32,7 +32,8 @@ router = do
             guardUserActivated,
             dirs "/api/config/fingerprints" fingerprints,
             dirs "/api/config/" $ path preset,
-            dirs "/api/release/" $ path release
+            dirs "/api/release/version" releaseVersion,
+            dirs "/api/release/download" releaseDownload
          ] 
 
 check :: Bool -> VCServer Response -> VCServer Response

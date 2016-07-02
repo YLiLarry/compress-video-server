@@ -5,8 +5,15 @@ import VC.Server.Class
 import VC.Server.Environment
 import Happstack.Server.FileServe.BuildingBlocks
 
-release :: String -> VCServer Response
-release version = do
-   dir <- releaseDir <$> config <$> get 
-   serveFileFrom dir (guessContentTypeM mimeTypes) version
+
+releaseVersion :: VCServer Response
+releaseVersion = do
+   release <- releaseZip <$> config <$> get 
+   hs <- liftIO $ getFileHash release
+   return $ toResponse hs
+
+releaseDownload :: VCServer Response
+releaseDownload = do
+   release <- releaseZip <$> config <$> get 
+   serveFile (guessContentTypeM mimeTypes) release
    

@@ -21,13 +21,16 @@ startServer = do
 -- Used to check if there is an update of config file on the server.
 generateFingerprints :: StateT Environment IO ()
 generateFingerprints = do   
-   cfgDir <- (presetDir . config) <$> get
-   fpf <- (fingerprintFile . config) <$> get
-   writeLog $ "Generate fingerprints for files in " ++ cfgDir
+   presetDir' <- presetDir <$> config <$> get
+   -- releaseDir' <- releaseDir <$> config <$> get
+   fpf <- fingerprintFile <$> config <$> get
+   writeLog $ "Generate fingerprints for files in " ++ presetDir'
+   -- writeLog $ "Generate fingerprints for files in " ++ releaseDir'
    writeLog $ "Generate fingerprints to " ++ fpf
-   cfgs <- liftIO $ getDirectoryContents cfgDir
+   configs <- liftIO $ getDirectoryContents presetDir'
+   -- releases <- liftIO $ getDirectoryContents releaseDir'
    liftIO $ do
-      ls <- sequence [ make cfgDir f | f <- cfgs, notElem f [".", ".."] ]
+      ls <- sequence [ make presetDir' f | f <- configs, notElem f [".", ".."] ]
       B.writeFile fpf $ encode ls
    where
       make p f = do

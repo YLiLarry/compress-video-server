@@ -12,6 +12,7 @@ import Control.Monad.Except as X
 import Data.Maybe as X
 import Data.Functor.Identity as X
 import GHC.Generics as X
+import GHC.Fingerprint as X
 import System.IO as X
 import System.Directory as X
 import System.Environment as X

@@ -58,3 +58,6 @@ runVCServer e a = do {
 
 instance MonadModel Connection VCServer where
    fromModel x = VCServer $ lift $ mapModelT lift x
+
+instance ToMessage Fingerprint where
+   toResponse = toResponse . show

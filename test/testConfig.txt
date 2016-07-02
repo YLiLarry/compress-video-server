@@ -1,6 +1,6 @@
 {
    "presetDir": "./test/test-resource/current/cfgs/",
-   "releaseDir": "./test/test-resource/current/release/",
+   "releaseZip": "./test/test-resource/release.zip",
    "tmpDir": "./test/test-resource/tmp/",
    "dbPath": "./test/test-resource/test.db",
    "fingerprintFile": "./test/test-resource/current/fingerprints.txt"
