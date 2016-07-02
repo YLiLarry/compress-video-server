@@ -3,7 +3,6 @@
 module VC.Server.DB.User where
    
 import VC.Server.Prelude
-import DB.Model.MultiTable
 
 data User m = User {
    key :: m Integer,

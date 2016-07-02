@@ -13,7 +13,9 @@ data Config = Config {
    fingerprintFile :: FilePath,
    -- ^ video presets
    presetDir :: FilePath,
-   dbPath    :: FilePath
+   releaseDir :: FilePath,
+   dbPath    :: FilePath,
+   tmpDir :: FilePath
 } deriving (Generic)
 
 data Environment = Environment {

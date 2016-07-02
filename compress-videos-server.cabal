@@ -19,10 +19,11 @@ library
                      , VC.Server.Route
                      , VC.Server.Router
                      , VC.Server.DB.User
+                     , VC.Server.Route.Release
                      , VC.Server.Environment
                      , VC.Server.Prelude
                      , VC.Server.Route.Preset
-                     , VC.Server.Types
+                     , VC.Server.Class
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
   build-depends:       mtl
